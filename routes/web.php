@@ -27,6 +27,11 @@ Route::group(['middleware' => 'admin'], function () {
        Route::get('admin', 'HomeController@isAdmin')->name('admin');
        Route::get('task-form', 'HomeController@form')->name('task-form');
        Route::post('submit-task', 'HomeController@storeTask')->name('submit-task');
+
+
+       Route::get('profile', 'Admin\ProfileController@index')->name('profile');
+
+       Route::get('reports', 'Admin\ProfileController@reports')->name('reports');
 });
 
 Route::group(['middleware' => 'user'], function () {
