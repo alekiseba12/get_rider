@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 class MpesaController extends Controller
 {
     public function generateAccessToken(){
-        $consumer_key= "";
-        $consumer_secret="";
+        $consumer_key= "YNgj2q3V8Azg24bNugTWSQkAA0wMWp8w";
+        $consumer_secret="AT4QhgSPneh4sqS3";
         $credentials = base64_encode($consumer_key.":".$consumer_secret);
         $url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
         $curl = curl_init();
