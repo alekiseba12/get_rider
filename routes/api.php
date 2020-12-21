@@ -20,4 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('all-users', 'HomeController@show');
 
-Route::get('/gen/password','MpesaController@generateAccessToken');
+Route::post('/lipa/nampesa','MpesaController@customerMpesaSTKPush');
