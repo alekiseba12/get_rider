@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('all-users', 'HomeController@show');
+
+Route::post('/lipa/nampesa','MpesaController@customerMpesaSTKPush');
