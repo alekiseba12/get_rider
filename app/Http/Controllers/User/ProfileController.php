@@ -1,38 +1,30 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Http\Request;
-use App\Traits\adminTrait;
 use Validator;
 use App\User;
+use Auth;
 
 class ProfileController extends Controller
 {
+    //Complete the profile
 
-	use adminTrait;
-    //index for profile
+    public function edit($id){
 
-    public function index(){
-    	$user=$this->shopCompany();
-    	return view('pages.admin.profile', compact('user'));
+    	$user=Auth::User()->find($id);
     }
 
-    //Report Dashboard
+    //update the profile
 
-    public function reports(){
-         
-         return view('pages.admin.reports');
-    }
-
-    //Update the shop owner or company
-    public function update(Request $request, $id){
+    public function updateShop(Request $request, $id){
     	$validate=Validator::make($request->all(),[
-          'shop'=> 'required|max:100|unique:users',
+          'motorcicle_number'=> 'required|max:100|unique:users',
           'photo'=> 'required|file|mimes:peg,png,jpeg,jpg',
         
 
@@ -42,7 +34,7 @@ class ProfileController extends Controller
         }
 
     	$user= User::where('id',$id)->get()->first();
-        $user->shop=$request->input('shop');
+        $user->motorcicle_number=$request->input('motorcicle_number');
         $file = $request['photo'];
         $file->move(public_path() . '/img/photos/', $file->getClientOriginalName());
         $url = URL::to("/") . '/img/photos/' . $file->getClientOriginalName();
@@ -51,4 +43,6 @@ class ProfileController extends Controller
 
         return back()->with('response', 'Your profile is completed successfully');
     }
+
+
 }

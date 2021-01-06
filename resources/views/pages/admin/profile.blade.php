@@ -48,28 +48,42 @@
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
+                   @if(empty($user->photo))
                   <img class="profile-user-img img-fluid img-circle"
-                       src="img/user4-128x128.jpg"
+                       src="img/empty.jpg"
                        alt="User profile picture">
+                      @else
+                     <img class="profile-user-img img-fluid img-circle"
+                       src="{{$user->photo}}"
+                       alt="User profile picture">
+                       @endif
                 </div>
 
-                <h3 class="profile-username text-center">Nina Mcintire</h3>
+                <h3 class="profile-username text-center">{{$user->firstname .' '. $user->lastname}}</h3>
 
-                <p class="text-muted text-center">Software Engineer</p>
+                 @if($user->role==1)
+                <p class="text-muted text-center">Shop/Company Owner</p>
+                @endif
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
-                    <b>Phone No</b> <a class="float-right">+254 70000000000</a>
+                    <b>Phone No</b> <a class="float-right">+254 {{$user->phone_number}}</a>
                   </li>
                   <li class="list-group-item">
-                    <b>Email</b> <a class="float-right">info@zusu.com</a>
+                    <b>Email</b> <a class="float-right">{{$user->email}}</a>
                   </li>
                   <li class="list-group-item">
-                    <b>Website Link</b> <a class="float-right">www.users.com</a>
+                    <b>Gender</b> <a class="float-right">{{$user->gender}}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>National ID</b> <a class="float-right">{{$user->national_id}}</a>
                   </li>
                 </ul>
-
-                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                @if(empty($user->photo))
+               <a href="javascript:;" class="btn btn-danger btn-block" data-toggle="modal" data-target="#userId-{{$user->id}}"><b>Complete Profile</b></a>
+               @else
+                <a href="{{route('riders')}}" class="btn btn-success btn-block"><b>View Verified Riders</b></a>
+                @endif
               </div>
               <!-- /.card-body -->
             </div>
@@ -148,36 +162,33 @@
                 <h3 class="card-title">More Details</h3>
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
-                <strong><i class="fas fa-home mr-1"></i> Company</strong>
+                 <div class="card-body">
+                <strong><i class="fas fa-home mr-1"></i> Shop/Company</strong>
 
                 <p class="text-muted">
-                  B.S. in Computer Science from the University of Tennessee at Knoxville
+                  {{$user->shop}}
                 </p>
 
                 <hr>
 
-                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+                <strong><i class="fas fa-map-marker-alt mr-1"></i> Constituency</strong>
 
-                <p class="text-muted">Malibu, California</p>
+                <p class="text-muted">{{$user->constituency}}</p>
 
                 <hr>
 
-                <strong><i class="fas fa-pencil-alt mr-1"></i> Product Categories</strong>
+                <strong><i class="fas fa-pencil-alt mr-1"></i> Location Area</strong>
 
                 <p class="text-muted">
-                  <span class="tag tag-danger">UI Design</span>
-                  <span class="tag tag-success">Coding</span>
-                  <span class="tag tag-info">Javascript</span>
-                  <span class="tag tag-warning">PHP</span>
-                  <span class="tag tag-primary">Node.js</span>
+                  <span class="tag tag-danger">{{$user->location}}</span>
+                  
                 </p>
 
                 <hr>
 
-                <strong><i class="far fa-file-alt mr-1"></i> Company Description</strong>
+                <strong><i class="far fa-file-alt mr-1"></i> Shop/Company Description</strong>
 
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                <p class="text-muted">{{$user->description}}.</p>
               </div>
               <!-- /.card-body -->
             </div>
@@ -209,6 +220,51 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
+<div class="modal fade" id="userId-{{$user->id}}">
+        <div class="modal-dialog modal-lg">  
+          <div class="modal-content bg-default">
+            <div class="modal-header">
+              <h4 class="modal-title">Complete Profile</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+               <form role="form" action="{{url('update-shop_company_owner', array($user->id))}}" method="post" enctype="multipart/form-data">
+                @csrf
+              <div class="row">
+              <div class="col-lg-8">
+                <div class="form-group">
+                    <label for="shop">Shop/Company Name</label>
+                    <input type="text" class="form-control" id="shop" placeholder="Provide Shop/Company Name" name="shop">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputFile">Profile Photo</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name="photo">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="">Upload</span>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-outline-success">Submit</button>
+            </div>
+          </form>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+
+
 @include('pages.admin.styles.js')
 </body>
 </html>

@@ -53,9 +53,21 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+
+            'firstname' => ['required', 'string', 'max:255'],
+            'lastname'  => ['required', 'string', 'max:255'],
+            'gender'    => ['required', 'string', 'max:6', 'min:4'],
+            'national_id' => ['required', 'numeric', 'min:8'],
+            'location'   => ['required', 'string', 'max:255'],
+            'phone_number' => ['required', 'string', 'max:15'],
+            'constituency' => ['required', 'string'],
+            'role'    => ['required'],
+            'description' => ['required', 'string','max:200'],
+
+           
         ]);
     }
 
@@ -68,20 +80,29 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
     
-
-      $user= User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
+        $user= User::create([
+            'name'         => $data['name'],
+            'email'        => $data['email'],
+            'firstname'    => $data['firstname'],
+            'lastname'     => $data['lastname'],
+            'gender'       => $data['gender'],
+            'national_id'  => $data['national_id'],
+            'location'     => $data['location'],
+            'constituency' => $data['constituency'],
             'phone_number' => $data['phone_number'],
-            'password' => Hash::make($data['password']),        
+            'role'     => $data['role'],
+            'description'  => $data['description'],
+            'password'     => Hash::make($data['password']),       
         ]);
-
       $user->notify(new smsNotification($user));
-
+      
+   
       return $user;
 
 
     }
+    
+    
     public function sendEmail(){
 
         $user=User::where('role',1)->get();

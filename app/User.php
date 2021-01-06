@@ -16,7 +16,20 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','phone_number',
+        'name',
+        'email',
+        'password',
+        'phone_number',
+        'firstname',
+        'lastname',
+        'gender',
+        'phone_number',
+        'national_id',
+        'location',
+        'constituency',
+        'role',
+        'description',
+       
     ];
 
     /**
@@ -33,7 +46,7 @@ class User extends Authenticatable
         }
     }
      public function is_user(){
-        if($this->role==0){
+        if($this->role==2){
             return true;
         }
 
@@ -55,4 +68,6 @@ class User extends Authenticatable
     {
         return $this->phone_number;
     }
+
+      
 }

@@ -14,7 +14,7 @@
           <img src="img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">User Dashboard</a>
         </div>
       </div>
 
@@ -24,7 +24,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
-            <a href="{{route('admin')}}" class="nav-link active">
+            <a href="{{url('/home')}}" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -32,9 +32,8 @@
               </p>
             </a>
            </li>
-
             <li class="nav-item">
-            <a href="{{route('reports')}}" class="nav-link">
+            <a href="{{route('user-report')}}" class="nav-link">
               <i class="nav-icon fas fa-envelope"></i>
               <p>
                 Reports              

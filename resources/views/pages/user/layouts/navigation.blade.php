@@ -7,9 +7,7 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{route('admin')}}" class="nav-link">Home</a>
       </li>
-       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{route('reports')}}" class="nav-link">Reports</a>
-      </li>
+   
          <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link" onclick="event.preventDefault();
           document.getElementById('logout-form').submit();">

@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use App\tasks;
 use App\User;
 use App\Notifications\SmsNotitifaction;
+use App\Traits\userTrait;
 
 class HomeController extends Controller
 {
+
+    use userTrait;
     /**
      * Create a new controller instance.
      *
@@ -26,7 +29,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user=$this->showDetails();
+        return view('home', compact('user'));
     }
 
     public function storeTask(Request $request){
@@ -60,6 +64,13 @@ class HomeController extends Controller
     public function isAdmin(){
 
         return view('admin');
+    }
+
+    //Reports for delivery
+
+    public function reports(){
+
+        return view('pages.user.reports');
     }
 
   
