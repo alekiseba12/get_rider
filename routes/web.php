@@ -48,4 +48,7 @@ Route::group(['middleware' => 'user'], function () {
        //To update the profile
        Route::get('edit-user/{id}', 'User\ProfileController@edit');
        Route::post('update-user/{id}', 'User\ProfileController@updateShop');
+       //delivery routes
+       Route::get('user/delivery','DeliveryController@create');
+       Route::post('user/delivery/store','DeliveryController@store')->name('user.delivery.store');
 });
