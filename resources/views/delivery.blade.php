@@ -17,7 +17,10 @@
                 <div class="card-body">
                     <form class="modal-form" method="POST" action="{{ route('user.delivery.store') }}" enctype="multipart/form-data">
 						@csrf
-						<div class="form-group">
+						
+                        <div style='display:flex;'>
+
+                            <div class="form-group " style="flex:0.33">
 							<label for="first_name">First Name</label>
 							<input  type="text" name="first_name" id="first_name" class="form-control"  autocomplete="off" value="{{old('first_name')}}" placeholder="First Name">
                             @if ($errors->has('first_name'))
@@ -27,7 +30,7 @@
                             @endif
 						</div>
 
-                        <div class="form-group">
+                        <div class="form-group ml-4" style="flex:0.33">
 							<label for="last_name">Last Name</label>
 							<input  type="text" name="last_name" id="last_name" class="form-control"  autocomplete="off" value="{{old('last_name')}}" placeholder="Last Name">
                             @if ($errors->has('last_name'))
@@ -37,16 +40,21 @@
                             @endif
 						</div>
 
-                        <div class="form-group">
+                         <div class="form-group ml-4" style="flex:0.33">
 							<label for="hotel">Gender</label>
                             <select name="gender" id="gender" class="form-control">
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                             </select>
 						</div>
-                        
 
-                        <div class="form-group">
+                        </div>
+
+                       
+
+                        <div style='display:flex;'>
+                        
+                            <div class="form-group" style="flex:0.5">
 							<label for="phone">Phone</label>
 							<input  type="text" name="phone" id="phone" class="form-control"  autocomplete="off" value="{{old('phone')}}" placeholder="Phone Number">
                             @if ($errors->has('phone'))
@@ -56,7 +64,7 @@
                             @endif
 						</div>
 
-                        <div class="form-group">
+                        <div class="form-group ml-4" style="flex:0.5">
 							<label for="email">Email</label>
 							<input  type="text" name="email" id="email" class="form-control"  autocomplete="off" value="{{old('email')}}" placeholder="Email Address">
                             @if ($errors->has('email'))
@@ -65,6 +73,11 @@
                                 </span>
                             @endif
 						</div>
+
+                        </div>
+                        
+
+                       
 
                          <div class="form-group">
 							<label for="hotel">Location</label>

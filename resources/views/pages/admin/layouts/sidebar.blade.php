@@ -33,6 +33,8 @@
             </a>
            </li>
 
+         
+
             <li class="nav-item">
             <a href="{{route('reports')}}" class="nav-link">
               <i class="nav-icon fas fa-envelope"></i>
