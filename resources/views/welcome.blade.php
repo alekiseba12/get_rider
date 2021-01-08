@@ -6,6 +6,8 @@
 
         <title>Laravel</title>
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
 
@@ -62,8 +64,33 @@
                 margin-bottom: 30px;
             }
         </style>
+
+
+ 
+
+
     </head>
     <body>
+
+ 
+ {{-- <script type="text/javascript">
+
+            $(document).ready(function() {
+                $("#constituency").change(function(){
+                  console.log("changed")
+                $.ajax({
+                    url: "constituencies/get_by_constituency/" + $(this).val(),
+                    method: 'GET',
+                    success: function(data) {
+                        $('#location').html(data.html);
+                        console.log(data.html)
+                    }
+                });
+             });
+            });
+            
+    </script> --}}
+    
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -84,17 +111,15 @@
                     Laravel
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div>
+    
+
+
+
+
                 </div>
             </div>
         </div>
     </body>
 </html>
+ 

@@ -18,6 +18,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('constituencies/get_by_constituency/{constituency_id}', 'LocationHandlerController@get_by_constituency')->name('constituencies');
+
 Auth::routes();
 
 Route::post('login', 'Auth\LoginController@login')->name('login');

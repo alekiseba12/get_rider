@@ -1,6 +1,30 @@
 @extends('layouts.app')
 
+@section('scripts')
+
+ <script type="text/javascript">
+
+            $(document).ready(function() {
+                $("#constituency").change(function(){
+             
+                $.ajax({
+                    url: "constituencies/get_by_constituency/" + $(this).val(),
+                    method: 'GET',
+                    success: function(data) {
+                        $('#location').html(data.html);
+                    }
+                });
+             });
+            });
+            
+    </script>
+
+@endsection
+
+
 @section('content')
+
+
 
 <div class="container">
     <div class="row justify-content-center">
@@ -190,24 +214,14 @@
 
            <div class="row g-3">
             <div class="col-sm-6">
-              <label for="firstName" class="form-label">Select Constituency</label>
+              <label for="constituency" class="form-label">Select Constituency</label>
               <select class="form-select" id="constituency" required name="constituency">
-                <option value="">Choose...</option>
-                <option value="Dagoretti North">Dagoretti North</option>
-                <option value="Dagoretti South">Dagoretti South</option>
-                <option value="Embakasi Central">Embakasi Central</option>
-                <option value="Embakasi East">Embakasi East</option>
-                <option value="Embakasi North">Embakasi North</option>
-                <option value="Embakasi South">Embakasi South</option>
-                <option value="Kamukunji">Kamukunji</option>
-                <option value="Kasarani">Kasarani</option>
-                <option value="Kibra">Kibra</option>
-                <option value="Langata">Langata</option>
-                <option value="Makadara">Makadara</option>
-                <option value="Roysambu">Roysambu</option>
-                <option value="Ruaraka">Ruaraka</option>
-                <option value="Starehe">Starehe</option>
-                <option value="Westlands">Westlands</option>
+                 @foreach($constituencies as $id => $constituency)
+                        <option value="{{ $id }}">
+                            {{ $constituency }}
+                        </option>
+                    @endforeach
+                
               </select>
               <div class="invalid-feedback">
                 Valid Constituency is required.
@@ -215,18 +229,24 @@
             </div>
 
             <div class="col-sm-6">
-              <label for="lastName" class="form-label">Located Area</label>
-             <input id="location" type="text" class="form-control @error('location') is-invalid @enderror" name="location" required autocomplete="phone_number">
-
-                                @error('location')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+               <label for="location">{{ trans('Located Area') }}</label>
+                <select name="location" id="location" class="form-control">
+                    <option value="">{{ trans('Please select Location') }}</option>
+                </select>
+                @if($errors->has('location'))
+                    <p class="help-block">
+                        {{ $errors->first('location') }}
+                    </p>
+                @endif
               <div class="invalid-feedback">
                 Valid Located Area is required.
               </div>
             </div>
+
+
+
+
+
              
         </div>
 

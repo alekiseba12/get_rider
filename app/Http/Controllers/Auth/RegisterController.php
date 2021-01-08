@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\smsNotification;
 
+
 class RegisterController extends Controller
 {
     /*
@@ -109,5 +110,7 @@ class RegisterController extends Controller
 
         return $user;
     }
+
+
     
 }

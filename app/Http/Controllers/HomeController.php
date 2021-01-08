@@ -7,6 +7,8 @@ use App\tasks;
 use App\User;
 use App\Notifications\SmsNotitifaction;
 use App\Traits\userTrait;
+use App\Constituency;
+use App\Area;
 
 class HomeController extends Controller
 {
@@ -19,7 +21,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+         $this->middleware('auth');
     }
 
     /**
