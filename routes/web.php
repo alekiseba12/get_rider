@@ -39,6 +39,14 @@ Route::group(['middleware' => 'admin'], function () {
        //Get the riders
 
        Route::get('riders', 'Admin\RiderController@index')->name('riders');
+
+       //Delivery routes 
+
+       Route::post('product-delivery/{id}', 'Admin\DeliveryController@store');
+
+       //Request the rider to deliver the cargo
+
+       Route::post('send-request/{id}','Admin\RequestController@sendRequest');
 });
 
 Route::group(['middleware' => 'user'], function () {
