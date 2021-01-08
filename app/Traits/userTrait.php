@@ -16,7 +16,8 @@ trait userTrait
      * @return void
      */
 	public function showDetails(){
-		$details=Auth::User()->where('role','=', 2)->first();
+          
+		$details=Auth::User()->where('role','=', 2)->get()->first();
 
 		return $details;
 	}

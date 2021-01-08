@@ -37,6 +37,20 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
+    @if ($errors->any())
+  <div class="col-sm-8">
+    <div class="alert  alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+</div>
+@endif
 
     <!-- Main content -->
     <section class="content">
@@ -56,6 +70,7 @@
                       <ul class="ml-4 mb-0 fa-ul text-muted">
                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: {{$rider->constituency}}, {{$rider->location}}</li><br>
                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: +254 {{$rider->phone_number}}</li><br>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span> Registration No #: {{$rider->id}}</li><br>
                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-motorcycle"></i></span> Motorcycle No #:<label class="badge bg-danger">{{$rider->motorcicle_number}}</label></li>
                       </ul>
                     </div>
@@ -69,8 +84,12 @@
                     <a href="#" class="btn btn-sm bg-success">
                       Active
                     </a>
-                    <a href="#" class="btn btn-sm btn-primary">
+
+                    <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#requestId-{{$rider->id}}">
                       <i class="fas fa-paper-plane"></i> Send Request
+                    </a>
+                       <a href="#" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#riderId-{{$rider->id}}">
+                      <i class="fas fa-envelope"></i> Send Delivery Details
                     </a>
                   </div>
                 </div>
@@ -115,6 +134,106 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
+@foreach($getRiders as $user)
+<div class="modal fade" id="riderId-{{$user->id}}">
+        <div class="modal-dialog modal-lg">  
+          <div class="modal-content bg-default">
+            <div class="modal-header">
+              <h4 class="modal-title">Delivery Form</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+               <form role="form" action="{{url('product-delivery', array($user->id))}}" method="post">
+                @csrf
+                <h4 class="mb-3"> Buyer Details</h4>
+                <hr class="my-4">
+                  <div class="row">
+                    
+                  <div class="col-3">
+                     <label> First Name</label>
+                    <input type="text" class="form-control" placeholder="" name="first_name">
+                  </div>
+                  <div class="col-4">
+                     <label>Last Name</label>
+                    <input type="text" class="form-control" placeholder="" name="last_name">
+                  </div>
+                  <div class="col-5">
+                     <label>Gender</label>
+                    <input type="text" class="form-control" placeholder="" name="gender">
+                  </div>
+                 </div>
+                 <br>
+                <div class="row">
+                    
+                  <div class="col-3">
+                     <label>Phone Number</label>
+                    <input type="text" class="form-control" placeholder="" name="phone">
+                  </div>
+                  <div class="col-4">
+                     <label>Email Address</label>
+                    <input type="email" class="form-control" placeholder="" name="email">
+                  </div>
+                  <div class="col-5">
+                     <label>Location Area</label>
+                    <input type="text" class="form-control" placeholder="" name="location">
+                  </div>
+                 </div>
+
+                 <br>
+                <div class="row">          
+                  <div class="col-12">
+                     <label>Product Name</label>
+                    <input type="text" class="form-control" placeholder="" name="product_name" >
+                  </div>
+              
+                 </div>
+                <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-outline-success">Submit</button>
+            </div>
+          </form>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+
+      @endforeach
+
+      @foreach($getRiders as $request)
+<div class="modal fade" id="requestId-{{$request->id}}">
+        <div class="modal-dialog">  
+          <div class="modal-content bg-default">
+            <div class="modal-header">
+              <h4 class="modal-title">Request Rider For Delivery</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+               <form role="form" action="{{url('product-delivery', array($request->id))}}" method="post">
+                @csrf
+
+                <p class="mb-3">Are you sure want to request this rider?
+                </p>
+                <h4 class="mb-3"> {{$request->firstname .' '. $request->lastname}}</h4>
+                <hr class="my-4">
+                  
+                <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-outline-success">Yes</button>
+            </div>
+          </form>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+
+      @endforeach
+
 @include('pages.admin.styles.js')
 </body>
 </html>

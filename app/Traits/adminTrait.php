@@ -16,7 +16,7 @@ trait adminTrait
      * @return void
      */
 	public function shopCompany(){
-		$info=Auth::User()->where('role','=', 1)->first();
+		$info=Auth::User()->where('role','=', 1)->get()->first();
 
 		return $info;
 	}
@@ -25,7 +25,7 @@ trait adminTrait
 
      public function riders(){
 
-          $riders=User::where('role','=',2)->get();
+          $riders=User::all()->where('role','=',2);
 
           return $riders;
      }  
