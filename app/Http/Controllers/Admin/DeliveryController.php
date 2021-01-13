@@ -43,4 +43,11 @@ class DeliveryController extends Controller
     	return back();
 
     }
+
+    //Sow the Deliveries Reports
+
+    public function show(){
+
+    	return view('pages.admin.deliveriesReport');
+    }
 }

@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('scripts')
+@section('content')
+
 
  <script type="text/javascript">
-
             $(document).ready(function() {
                 $("#constituency").change(function(){
              
@@ -18,12 +18,6 @@
             });
             
     </script>
-
-@endsection
-
-
-@section('content')
-
 
 
 <div class="container">
@@ -242,11 +236,6 @@
                 Valid Located Area is required.
               </div>
             </div>
-
-
-
-
-
              
         </div>
 

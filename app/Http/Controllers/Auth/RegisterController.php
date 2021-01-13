@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\smsNotification;
+use App\Models\areas;
+use App\Models\constituencies;
 
 
 class RegisterController extends Controller
@@ -91,7 +93,7 @@ class RegisterController extends Controller
             'location'     => $data['location'],
             'constituency' => $data['constituency'],
             'phone_number' => $data['phone_number'],
-            'role'     => $data['role'],
+            'role'         => $data['role'],
             'description'  => $data['description'],
             'password'     => Hash::make($data['password']),       
         ]);

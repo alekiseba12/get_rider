@@ -69,5 +69,8 @@ class User extends Authenticatable
         return $this->phone_number;
     }
 
-      
+        public function riders(){
+
+        return $this->hasMany('App\Models\requests','seller_id', 'id');
+    }
 }

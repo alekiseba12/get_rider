@@ -46,9 +46,13 @@ Route::group(['middleware' => 'admin'], function () {
 
        Route::post('product-delivery/{id}', 'Admin\DeliveryController@store');
 
+       Route::get('all-riders-deliveries', 'Admin\DeliveryController@show')->name('all-riders-deliveries');
+
        //Request the rider to deliver the cargo
 
        Route::post('send-request/{id}','Admin\RequestController@sendRequest');
+
+       Route::get('all-riders-requests', 'Admin\RequestController@show')->name('all-riders-requests');
 });
 
 Route::group(['middleware' => 'user'], function () {

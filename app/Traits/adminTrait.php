@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 use App\User;
+use App\Models\requests;
 use Auth;
 use DB;
 
@@ -16,9 +17,9 @@ trait adminTrait
      * @return void
      */
 	public function shopCompany(){
-		$info=Auth::User()->where('role','=', 1)->get()->first();
-
-		return $info;
+          $user=Auth::User();        
+          $info=User::where('role','=', 1)->where('id',$user['id'])->first();
+	     return $info;
 	}
 
      //Display all the riders for shop/company owners
@@ -28,7 +29,28 @@ trait adminTrait
           $riders=User::all()->where('role','=',2);
 
           return $riders;
-     }  
+     }
+
+     //Get all the riders requests
+
+     public function showRiderRequests(){
+          $currentUser=Auth::User();
+
+          $requests=$currentUser->riders()->where('seller_id', $currentUser['id'])->get();
+
+          return $requests;
+     }
+
+
+     //Get all the deliveries
+
+     public function showRiderDeliveries(){
+          $currentUser=Auth::User();
+
+          $requests=$currentUser->riders()->where('seller_id', $currentUser['id'])->get();
+
+          return $requests;
+     }
  }
  
 ?>

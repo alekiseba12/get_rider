@@ -35,13 +35,28 @@
 
          
 
-            <li class="nav-item">
+            <li class="nav-item has-treeview">
             <a href="{{route('reports')}}" class="nav-link">
               <i class="nav-icon fas fa-envelope"></i>
               <p>
                 Reports              
               </p>
             </a>
+              <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('all-riders-deliveries')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Deliveries</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('all-riders-requests')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Requests</p>
+                </a>
+              </li>
+             
+            </ul>
            </li>
          </ul>
       </nav>

@@ -199,6 +199,7 @@
         </div>
         <!-- /.modal-dialog -->
       </div>
+    </div>
 
       @endforeach
 
@@ -213,7 +214,7 @@
               </button>
             </div>
             <div class="modal-body">
-               <form role="form" action="{{url('product-delivery', array($request->id))}}" method="post">
+               <form role="form" action="{{url('send-request', array($request->id))}}" method="post">
                 @csrf
 
                 <p class="mb-3">Are you sure want to request this rider?
@@ -231,6 +232,7 @@
         </div>
         <!-- /.modal-dialog -->
       </div>
+    </div>
 
       @endforeach
 
