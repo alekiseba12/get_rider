@@ -35,6 +35,13 @@ class HomeController extends Controller
         return view('home', compact('user'));
     }
 
+    public function profile(){
+
+        $user=$this->showDetails();
+        return view('pages.user.profile', compact('user'));
+
+    }
+
     public function storeTask(Request $request){
 
         $task=new tasks();

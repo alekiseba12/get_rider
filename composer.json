@@ -17,6 +17,7 @@
         "laravel/nexmo-notification-channel": "^2.4",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^2.4",
+        "malhal/laravel-geographical": "^1.0",
         "pusher/pusher-php-server": "^4.1"
     },
     "require-dev": {

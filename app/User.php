@@ -10,6 +10,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected static $kilometers = true;                                              
     /**
      * The attributes that are mass assignable.
      *
@@ -29,6 +30,9 @@ class User extends Authenticatable
         'constituency',
         'role',
         'description',
+        'latitude',
+        'longitude',
+        'status'
        
     ];
 
@@ -72,5 +76,10 @@ class User extends Authenticatable
         public function riders(){
 
         return $this->hasMany('App\Models\requests','seller_id', 'id');
+    }
+
+    public function deliveries(){
+
+        return $this->hasMany('App\Models\deliveries','user_id', 'id');
     }
 }

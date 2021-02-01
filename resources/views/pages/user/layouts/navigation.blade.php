@@ -1,12 +1,17 @@
- <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+   <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{route('admin')}}" class="nav-link">Home</a>
+            <img src="img/Canva.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+             style="opacity: .8">
+        <a href="{{route('admin')}}" class="nav-link">Deliveries</a>
       </li>
+            <li class="nav-item">
+            <a href="#" class="nav-link">Reports</a>
+          </li>
    
          <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link" onclick="event.preventDefault();

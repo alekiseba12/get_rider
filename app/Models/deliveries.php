@@ -14,4 +14,9 @@ class deliveries extends Model
      */
 
     protected $fillable=['user_id', 'first_name','last_name','gender','email','phone','location','product_name'];
+
+    public function user(){
+
+        return $this->belongsTo('App\User');
+    }
 }
