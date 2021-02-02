@@ -44,7 +44,7 @@ Route::group(['middleware' => 'admin'], function () {
 
        //Delivery routes 
 
-       Route::post('product-delivery/{id}', 'Admin\DeliveryController@store');
+       Route::post('product-delivery', 'Admin\DeliveryController@store')->name('product-delivery');
 
        Route::get('all-riders-deliveries', 'Admin\DeliveryController@show')->name('all-riders-deliveries');
 

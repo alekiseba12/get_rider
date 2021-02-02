@@ -191,7 +191,15 @@
                     <b>National ID</b> <a class="float-right">{{$user->national_id}}</a>
                   </li>
                 </ul>
-                
+                @if(Empty($user->photo))
+                   <a href="javascript::" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#userId-{{$user->id}}">
+                       Complete Profile
+                    </a>
+                    @else
+                     <a href="javascript::" class="btn btn-sm btn-success" data-toggle="modal" data-target="#">
+                       Profile Updated
+                    </a>
+                    @endif
               </div>
               <!-- /.card-body -->
             </div>
@@ -328,10 +336,10 @@
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
+<script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
+<script src="js/adminlte.min.js"></script>
 </body>
 </html>

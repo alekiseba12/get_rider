@@ -106,7 +106,7 @@
 
               <!-- /.card-header -->
               <div class="card-body">
-                     <a href="#" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#">
+                     <a href="#" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#delivery">
                       <i class="fas fa-plus"></i> New Delivery
                     </a>
                     <br>
@@ -198,6 +198,36 @@
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
+<div class="modal fade" id="delivery">
+        <div class="modal-dialog modal-lg">  
+          <div class="modal-content bg-default">
+            <div class="modal-header">
+              <h4 class="modal-title">Delivery Form</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+               <form role="form" action="{{route('product-delivery')}}" method="post">
+                @csrf
+                <div class="row">          
+                  <div class="col-12">
+                     <label>Product Name</label>
+                    <input type="text" class="form-control" placeholder="" name="product_name" >
+                  </div>
+              
+                 </div>
+                <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-outline-success">Submit</button>
+            </div>
+          </form>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+    </div>
 @include('pages.admin.styles.js')
 </body>
 </html>
