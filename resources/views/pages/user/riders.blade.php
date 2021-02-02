@@ -129,17 +129,10 @@
                 </div>
                 <div class="card-footer">
                   <div class="text-right">
-<<<<<<< HEAD
-                    <a href="#" class="btn btn-sm bg-success">
-                      Active
-                    </a>
-                    <div class="row text-center">
-                       <div class="col">Distance: <span class="badge badge-info">{{$rider->distance}}</span></div>
-                       <div class="col">Duration: <span class="badge badge-info">{{$rider->duration}}</span></div>
-                    </div>
-=======
 
->>>>>>> e116380458fa9965ae53edfc38ed00ecf5852a4a
+                   
+                        <span class="badge badge-danger">{{$rider->distance}}</span>
+
 
                     <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#requestId-{{$rider->id}}">
                       <i class="fas fa-paper-plane"></i> Request

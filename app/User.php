@@ -16,9 +16,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-<<<<<<< HEAD
-    protected $guarded = [];
-=======
+
     protected $fillable = [
         'name',
         'email',
@@ -38,7 +36,7 @@ class User extends Authenticatable
         'status'
        
     ];
->>>>>>> e116380458fa9965ae53edfc38ed00ecf5852a4a
+
 
     /**
      * The attributes that should be hidden for arrays.

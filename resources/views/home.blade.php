@@ -85,7 +85,7 @@
       <div class="container">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark"> Available Deliveries </h1>
+            <h1 class="m-0 text-dark">Active Deliveries </h1>
           </div><!-- /.col -->
 
         </div><!-- /.row -->
@@ -113,12 +113,7 @@
                       <ul class="ml-4 mb-0 fa-ul text-muted">
                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address:{{$deliveries->location}}</li>
                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + (254) {{$deliveries->phone_number}}</li>
-                                  <br>
-                              @if($deliveries->status=="active")
-                             <li class="small"><span class="fa-li"><i class="fas fa-lg fa-unlock"></i></span><b>Status: </b><span class="fa fa-circle text-success pull-right"></span>
-                              @else
-                              <li class="small"><span class="fa-li"><i class="fas fa-lg fa-lock"></i></span><b>Status: </b><span class="fa fa-circle text-danger pull-right"></span></li>
-                              @endif
+                              <li class="small"><span class="fa-li"><i class="fas fa-lg fa-map-marker"></i></span><b>Distance: </b><span class="badge badge-danger">{{$deliveries->distance}} Km</span></li>
                       </ul>
                       </ul>
                     </div>
@@ -132,9 +127,7 @@
                    <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#requestId-{{$deliveries->id}}">
                       <i class="fas fa-paper-plane"></i> Request
                     </a>
-                    <a href="#" class="btn btn-sm bg-teal">
-                      <i class="fas fa-users"></i> 3 Requests
-                    </a>
+
                  
                   </div>
                 </div>

@@ -27,11 +27,17 @@ trait userTrait
 
               $showDetails=DB::table('deliveries')
                                ->join('users', 'users.id','=','deliveries.seller_id')
-                               ->select('users.firstname','users.lastname','users.photo', 'users.description','users.location','users.phone_number','users.shop','deliveries.*')
+                               ->select('users.firstname','users.lastname','users.photo','users.distance', 'users.description','users.location','users.phone_number','users.shop','deliveries.*')
                                ->where('role','=',1)
                                ->get();
 
                return $showDetails;
+     }
+          public function showDetails(){
+          $user=Auth::User();        
+          $info=User::where('role','=', 2)->where('id',$user['id'])->first();
+
+          return $info;
      }
      
    
