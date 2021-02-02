@@ -40,15 +40,23 @@ class ProfileController extends Controller
         if ($validate->fails()) {
             return back()->withErrors($validate)->withInput();
         }
-
     	$user= User::where('id',$id)->get()->first();
         $user->shop=$request->input('shop');
+        $user->status=$request->input('status');
+
+
         $file = $request['photo'];
         $file->move(public_path() . '/img/photos/', $file->getClientOriginalName());
         $url = URL::to("/") . '/img/photos/' . $file->getClientOriginalName();
         $user->photo=$url;
+              return $user->status;
+
+        die();
         $user->update();
 
         return back()->with('response', 'Your profile is completed successfully');
     }
+    
+
+  
 }

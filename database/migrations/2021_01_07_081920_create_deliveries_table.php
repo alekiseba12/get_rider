@@ -24,6 +24,9 @@ class CreateDeliveriesTable extends Migration
             $table->string('product_name');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->bigInteger('seller_id')->unsigned();
+            $table->foreign('seller_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

@@ -24,6 +24,13 @@ trait userTrait
 		return $details;
 	}
 
+     public function showDelivaries(){
+          
+          $deliveries=User::where('role','=', 1)->get();
+
+          return $deliveries;
+     }
+     
    
 
  }

@@ -33,7 +33,7 @@
             </a>
            </li>
             <li class="nav-item">
-            <a href="{{route('delivery')}}" class="nav-link">
+            <a href="{{route('available-deliveries')}}" class="nav-link">
               <i class="nav-icon fas fa-car"></i>
               <p>
                 Delivery            

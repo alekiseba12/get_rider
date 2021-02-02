@@ -10,12 +10,35 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected static $kilometers = true;                                              
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+<<<<<<< HEAD
     protected $guarded = [];
+=======
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'phone_number',
+        'firstname',
+        'lastname',
+        'gender',
+        'phone_number',
+        'national_id',
+        'location',
+        'constituency',
+        'role',
+        'description',
+        'latitude',
+        'longitude',
+        'status'
+       
+    ];
+>>>>>>> e116380458fa9965ae53edfc38ed00ecf5852a4a
 
     /**
      * The attributes that should be hidden for arrays.
@@ -57,5 +80,10 @@ class User extends Authenticatable
         public function riders(){
 
         return $this->hasMany('App\Models\requests','seller_id', 'id');
+    }
+
+    public function deliveries(){
+
+        return $this->hasMany('App\Models\deliveries','user_id', 'id');
     }
 }

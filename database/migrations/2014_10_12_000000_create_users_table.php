@@ -34,8 +34,12 @@ class CreateUsersTable extends Migration
             $table->string('description');
             $table->string('latitude');
             $table->string('longitude');
+<<<<<<< HEAD
             $table->string('distance')->nullable();
             $table->string('duration')->nullable();
+=======
+            $table->integer('status')->default(0);
+>>>>>>> e116380458fa9965ae53edfc38ed00ecf5852a4a
             $table->rememberToken();
             $table->timestamps();
         });

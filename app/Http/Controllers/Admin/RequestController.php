@@ -38,7 +38,6 @@ class RequestController extends Controller
     public function show(){
 
     	$sentRequests=$this->showRiderRequests();
-
     	return view('pages.admin.requestReport',compact('sentRequests'));
     }
 

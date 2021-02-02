@@ -3,6 +3,7 @@
 namespace App\Traits;
 use App\User;
 use App\Models\requests;
+use App\Models\deliveries;
 use Auth;
 use DB;
 
@@ -36,7 +37,11 @@ trait adminTrait
      public function showRiderRequests(){
           $currentUser=Auth::User();
 
-          $requests=$currentUser->riders()->where('seller_id', $currentUser['id'])->get();
+          $requests=DB::table('requests')
+                       ->join('users','users.id','=','requests.rider_id')
+                       ->select('users.*', 'requests.status')
+                       ->where('requests.seller_id',$currentUser['id'])
+                       ->get();
 
           return $requests;
      }
@@ -47,9 +52,12 @@ trait adminTrait
      public function showRiderDeliveries(){
           $currentUser=Auth::User();
 
-          $requests=$currentUser->riders()->where('seller_id', $currentUser['id'])->get();
-
-          return $requests;
+          $deliveries=DB::table('deliveries')
+                       ->join('users','users.id','=','deliveries.user_id')
+                       ->select('users.national_id', 'deliveries.*')
+                       ->where('deliveries.seller_id',$currentUser['id'])
+                       ->get();
+          return $deliveries;
      }
  }
  

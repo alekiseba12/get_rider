@@ -27,7 +27,7 @@ Route::post('login', 'Auth\LoginController@login')->name('login');
 
 
 Route::group(['middleware' => 'admin'], function () {
-       Route::get('admin', 'Admin\ProfileController@index')->name('admin');
+       Route::get('admin', 'Admin\RiderController@index')->name('admin');
        Route::get('task-form', 'HomeController@form')->name('task-form');
        Route::post('submit-task', 'HomeController@storeTask')->name('submit-task');
 
@@ -41,7 +41,7 @@ Route::group(['middleware' => 'admin'], function () {
 
        //Get the riders
 
-       Route::get('riders', 'Admin\RiderController@index')->name('riders');
+       Route::get('profile', 'Admin\ProfileController@index')->name('profile');
 
        //Delivery routes 
 
@@ -64,6 +64,17 @@ Route::group(['middleware' => 'user'], function () {
        Route::get('edit-user/{id}', 'User\ProfileController@edit');
        Route::post('update-user/{id}', 'User\ProfileController@updateShop');
        //delivery routes
-       Route::get('user/delivery','DeliveryController@create')->name('delivery');
-       Route::post('user/delivery/store','DeliveryController@store')->name('user.delivery.store');
+
+       Route::get('available-deliveries', 'Admin\DeliveryController@showAvalaibleDeliveries')->name('available-deliveries');
+
+       //Request Buyer/Seller
+
+       Route::post('request-delivery/{id}','User\IndexController@requestDelivery');
+
+       //Profile Route
+
+       Route::get('rider-profile', 'HomeController@profile')->name('rider-profile');
+      
+
+
 });
