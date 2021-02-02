@@ -19,6 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('constituencies/get_by_constituency/{constituency_id}', 'LocationHandlerController@get_by_constituency')->name('constituencies');
+Route::get('location/cordinates/{city}/{state}','LocationHandlerController@get_coordinates');
 
 Auth::routes();
 

@@ -32,6 +32,10 @@ class CreateUsersTable extends Migration
             $table->string('company')->nullable();
             $table->string('photo')->nullable();
             $table->string('description');
+            $table->string('latitude');
+            $table->string('longitude');
+            $table->string('distance')->nullable();
+            $table->string('duration')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

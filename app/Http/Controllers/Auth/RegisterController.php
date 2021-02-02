@@ -69,6 +69,9 @@ class RegisterController extends Controller
             'constituency' => ['required', 'string'],
             'role'    => ['required'],
             'description' => ['required', 'string','max:200'],
+            'lat'=>'',
+            'longitude'=>'', 
+        
 
            
         ]);
@@ -95,8 +98,13 @@ class RegisterController extends Controller
             'phone_number' => $data['phone_number'],
             'role'         => $data['role'],
             'description'  => $data['description'],
-            'password'     => Hash::make($data['password']),       
+            'password'     => Hash::make($data['password']),   
+            'latitude'     =>$data['lat'],
+            'longitude'    =>$data['longitude'],
+            
         ]);
+
+        
       $user->notify(new smsNotification($user));
       
    

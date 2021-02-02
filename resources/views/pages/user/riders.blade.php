@@ -84,6 +84,10 @@
                     <a href="#" class="btn btn-sm bg-success">
                       Active
                     </a>
+                    <div class="row text-center">
+                       <div class="col">Distance: <span class="badge badge-info">{{$rider->distance}}</span></div>
+                       <div class="col">Duration: <span class="badge badge-info">{{$rider->duration}}</span></div>
+                    </div>
 
                     <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#requestId-{{$rider->id}}">
                       <i class="fas fa-paper-plane"></i> Send Request
