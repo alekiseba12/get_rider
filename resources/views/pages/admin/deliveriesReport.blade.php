@@ -106,7 +106,7 @@
 
               <!-- /.card-header -->
               <div class="card-body">
-                     <a href="#" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#">
+                     <a href="#" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#delivery">
                       <i class="fas fa-plus"></i> New Delivery
                     </a>
                     <br>
@@ -117,24 +117,16 @@
                   <thead>
                   <tr>
                     <th>S/N</th>
-                    <th>Phone</th>
-                    <th>Fullname</th>
                     <th>Product Name</th>
-                    <th>Rider</th>
-                    <th>Requested Date</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
                     @foreach($allDeliveries as $request)
-                  <tr>
-                   
+                  <tr>            
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$request->phone}}</td>
-                    <td>{{$request->first_name}} {{$request->last_name}}</td>
                     <td>{{$request->product_name}}</td>
-                    <td><small class="badge badge-info"> View Rider</small></td>
                     <td>{{$request->created_at}}</td>
                     <td>
                       
@@ -198,6 +190,36 @@
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
+<div class="modal fade" id="delivery">
+        <div class="modal-dialog modal-lg">  
+          <div class="modal-content bg-default">
+            <div class="modal-header">
+              <h4 class="modal-title">Delivery Form</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+               <form role="form" action="{{route('product-delivery')}}" method="post">
+                @csrf
+                <div class="row">          
+                  <div class="col-12">
+                     <label>Product Name</label>
+                    <input type="text" class="form-control" placeholder="" name="product_name" >
+                  </div>
+              
+                 </div>
+                <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-outline-success">Submit</button>
+            </div>
+          </form>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+    </div>
 @include('pages.admin.styles.js')
 </body>
 </html>

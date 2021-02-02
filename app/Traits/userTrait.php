@@ -15,20 +15,23 @@ trait userTrait
      *
      * @return void
      */
-	public function showDetails(){
-
-          $user=Auth::User();
-          
-		$details=User::where('role','=', 2)->where('id',$user['id'])->first();
-
-		return $details;
-	}
 
      public function showDelivaries(){
           
           $deliveries=User::where('role','=', 1)->get();
 
           return $deliveries;
+     }
+
+     public function sellerDeliveries(){
+
+              $showDetails=DB::table('deliveries')
+                               ->join('users', 'users.id','=','deliveries.seller_id')
+                               ->select('users.firstname','users.lastname','users.photo', 'users.description','users.location','users.phone_number','users.shop','deliveries.*')
+                               ->where('role','=',1)
+                               ->get();
+
+               return $showDetails;
      }
      
    

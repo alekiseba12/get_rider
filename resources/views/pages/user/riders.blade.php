@@ -144,9 +144,6 @@
                     <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#requestId-{{$rider->id}}">
                       <i class="fas fa-paper-plane"></i> Request
                     </a>
-                       <a href="#" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#riderId-{{$rider->id}}">
-                      <i class="fas fa-envelope"></i> Delivery Details
-                    </a>
                   </div>
                 </div>
               </div>

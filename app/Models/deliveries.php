@@ -13,7 +13,7 @@ class deliveries extends Model
      * @var array
      */
 
-    protected $fillable=['user_id', 'first_name','last_name','gender','email','phone','location','product_name'];
+    protected $fillable=['product_name'];
 
     public function user(){
 

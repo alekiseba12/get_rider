@@ -52,10 +52,8 @@ trait adminTrait
      public function showRiderDeliveries(){
           $currentUser=Auth::User();
 
-          $deliveries=DB::table('deliveries')
-                       ->join('users','users.id','=','deliveries.user_id')
-                       ->select('users.national_id', 'deliveries.*')
-                       ->where('deliveries.seller_id',$currentUser['id'])
+          $deliveries=deliveries::
+                       where('deliveries.seller_id',$currentUser['id'])
                        ->get();
           return $deliveries;
      }
