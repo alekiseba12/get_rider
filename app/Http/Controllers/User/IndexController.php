@@ -8,6 +8,7 @@ use App\Models\requests;
 use App\User;
 use Auth;
 
+
 class IndexController extends Controller
 {
     //Request the delivery

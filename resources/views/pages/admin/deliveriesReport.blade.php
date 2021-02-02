@@ -117,24 +117,16 @@
                   <thead>
                   <tr>
                     <th>S/N</th>
-                    <th>Phone</th>
-                    <th>Fullname</th>
                     <th>Product Name</th>
-                    <th>Rider</th>
-                    <th>Requested Date</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
                     @foreach($allDeliveries as $request)
-                  <tr>
-                   
+                  <tr>            
                     <td>{{$loop->iteration}}</td>
-                    <td>{{$request->phone}}</td>
-                    <td>{{$request->first_name}} {{$request->last_name}}</td>
                     <td>{{$request->product_name}}</td>
-                    <td><small class="badge badge-info"> View Rider</small></td>
                     <td>{{$request->created_at}}</td>
                     <td>
                       
