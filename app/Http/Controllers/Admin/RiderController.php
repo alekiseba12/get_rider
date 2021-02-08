@@ -16,6 +16,7 @@ class RiderController extends Controller
 
 		
 		$getRiders=$this->riders();
+		$user=$this->shopCompany();
 
 		$admin_lat = -1.282;
 		$admin_lng = 36.888;
@@ -25,7 +26,7 @@ class RiderController extends Controller
 			$rider->duration = str_replace(',','.',$distance['time']);
 			$rider->save();
 		}
-    	return view('pages.user.riders', compact('getRiders'));
+    	return view('pages.user.riders', compact('getRiders','user'));
 	}
 	
 	function GetDrivingDistance($lat1, $lat2, $long1, $long2)

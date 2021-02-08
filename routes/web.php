@@ -27,7 +27,7 @@ Route::post('login', 'Auth\LoginController@login')->name('login');
 
 
 Route::group(['middleware' => 'admin'], function () {
-       Route::get('admin', 'Admin\RiderController@index')->name('admin');
+       Route::get('dashbaord', 'Admin\RiderController@index')->name('dashbaord');
        Route::get('task-form', 'HomeController@form')->name('task-form');
        Route::post('submit-task', 'HomeController@storeTask')->name('submit-task');
 

@@ -1,2 +1,2 @@
  
-  <title>User| Dashboard</title>
+  <title>Rider| Dashboard</title>

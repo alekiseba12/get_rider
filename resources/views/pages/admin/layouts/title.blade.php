@@ -1,2 +1,2 @@
  
-  <title>Seller-Buyer | Dashboard</title>
+  <title>Account | Dashboard</title>

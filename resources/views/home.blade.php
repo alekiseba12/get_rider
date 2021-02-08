@@ -7,7 +7,7 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
-  @include('pages.admin.styles.css')
+  @include('pages.user.styles.css')
      <style type="text/css">
    .main-header{
     background-color:#001f3f;
@@ -20,11 +20,12 @@
 <div class="wrapper">
 
   <!-- Navbar -->
-<nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+  <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
     <div class="container">
       <a href="{{route('home')}}" class="navbar-brand">
-        <img src="img/Canva.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+        <img src="img/Canva.png" alt="Company Logo" class="brand-image img-circle elevation-3"
              style="opacity: .8">
+       
       </a>
       
       <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,10 +33,6 @@
       </button>
 
       <div class="collapse navbar-collapse order-3" id="navbarCollapse">
-        <!-- Left navbar links -->
-
-
-        <!-- SEARCH FORM -->
 
       </div>
 
@@ -44,10 +41,14 @@
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
-             <img src="img/Canva.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+            @if(empty($user->photo))
+             <img src="img/empty.jpg" alt="User Photo" class="brand-image img-circle elevation-3"
              style="opacity: .8">
+             @else
+              <img src="{{$user->photo}}" alt="User Photo" class="brand-image img-circle elevation-3"
+             style="opacity: .8">
+             @endif
           </a>
-        
         </li>
         <!-- Notifications Dropdown Menu -->
         <li class="nav-item dropdown">
@@ -55,13 +56,8 @@
             Settings
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-           
-            <a href="{{route('rider-profile')}}" class="dropdown-item">
-              <i class="fas fa-user mr-2"></i> Account
-              
-            </a>
             <div class="dropdown-divider"></div>
-           <a href="javascript::" class="dropdown-item" onclick="event.preventDefault();
+            <a href="javascript::" class="dropdown-item" onclick="event.preventDefault();
           document.getElementById('logout-form').submit();">
                <i class="fas fa-envelope mr-2"></i> 
             {{ __('Logout') }}
@@ -69,6 +65,7 @@
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
               @csrf
           </form>
+
             
           </div>
         </li>
@@ -82,132 +79,171 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
-      <div class="container">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Active Deliveries </h1>
-          </div><!-- /.col -->
-
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+   
     </div>
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <div class="content">
+    <section class="content">
       <div class="container">
-        <div class="card card-solid">
-        <div class="card-body pb-0">
-          <div class="row d-flex align-items-stretch">
-            @foreach($availableDeliveries as $deliveries)
-            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
-              <div class="card bg-light">
-                <div class="card-header text-muted border-bottom-0">
-                {{$deliveries->shop}}
+        <div class="row">
+          <div class="col-md-3">
+
+            <!-- Profile Image -->
+               <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                   @if(empty($user->photo))
+                  <img class="profile-user-img img-fluid img-circle"
+                       src="img/empty.jpg"
+                       alt="User profile picture">
+                      @else
+                     <img class="profile-user-img img-fluid img-circle"
+                       src="{{$user->photo}}"
+                       alt="User profile picture">
+                       @endif
                 </div>
-                <div class="card-body pt-0">
-                  <div class="row">
-                    <div class="col-7">
-                      <h2 class="lead"><b>{{$deliveries->firstname .' '. $deliveries->lastname}}</b></h2>
-                      <p class="text-muted text-sm"><b>About: </b> {{$deliveries->description}}</p>
-                      <ul class="ml-4 mb-0 fa-ul text-muted">
-                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address:{{$deliveries->location}}</li>
-                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + (254) {{$deliveries->phone_number}}</li>
-                              <li class="small"><span class="fa-li"><i class="fas fa-lg fa-map-marker"></i></span><b>Distance: </b><span class="badge badge-danger">{{$deliveries->distance}} Km</span></li>
-                      </ul>
-                      </ul>
-                    </div>
-                    <div class="col-5 text-center">
-                      <img src="{{$deliveries->photo}}" alt="" class="img-circle img-fluid">
-                    </div>
-                  </div>
-                </div>
-                <div class="card-footer">
-                  <div class="text-right">
-                   <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#requestId-{{$deliveries->id}}">
-                      <i class="fas fa-paper-plane"></i> Request
+
+                <h3 class="profile-username text-center">{{$user->firstname .' '. $user->lastname}}</h3>
+
+                 @if($user->role==2)
+                <p class="text-muted text-center">Rider</p>
+                @endif
+
+                <ul class="list-group list-group-unbordered mb-3">
+                  <li class="list-group-item">
+                    <b>Phone No</b> <a class="float-right">+254 {{$user->phone_number}}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Email</b> <a class="float-right">{{$user->email}}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Gender</b> <a class="float-right">{{$user->gender}}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>National ID</b> <a class="float-right">{{$user->national_id}}</a>
+                  </li>
+                </ul>
+                @if(Empty($user->photo))
+                   <a href="javascript::" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#userId-{{$user->id}}">
+                       Complete Profile
                     </a>
-
-                 
-                  </div>
-                </div>
+                    @else
+                     <a href="javascript::" class="btn btn-sm btn-success" data-toggle="modal" data-target="#">
+                       Profile Updated
+                    </a>
+                    @endif
               </div>
+              <!-- /.card-body -->
             </div>
-            @endforeach
+       
+        
+            <!-- /.card -->
 
+            <!-- About Me Box -->
+          
+            <!-- /.card -->
           </div>
+          <!-- /.col -->
+          <div class="col-md-9">
+   
+          <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">More Details</h3>
+              </div>
+              <!-- /.card-header -->
+                 <div class="card-body">
+                <strong><i class="fas fa-home mr-1"></i> MotorCycle No</strong>
+
+                <p class="text-muted">
+                  {{$user->motorcicle_number}}
+                </p>
+
+                <hr>
+
+                <strong><i class="fas fa-map-marker-alt mr-1"></i> Constituency</strong>
+
+                <p class="text-muted">{{$user->constituency}}</p>
+
+                <hr>
+
+                <strong><i class="fas fa-pencil-alt mr-1"></i> Location Area</strong>
+
+                <p class="text-muted">
+                  <span class="tag tag-danger">{{$user->location}}</span>
+                  
+                </p>
+
+                <hr>
+
+                <strong><i class="far fa-file-alt mr-1"></i> Personal Description</strong>
+
+                <p class="text-muted">{{$user->description}}.</p>
+              </div>
+              <!-- /.card-body -->
+            </div>
+
+              </div>
+
+              <!-- /.card-body -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+          </div>
+          <!-- /.col -->
         </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-          <nav aria-label="Contacts Page Navigation">
-            <ul class="pagination justify-content-center m-0">
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">4</a></li>
-              <li class="page-item"><a class="page-link" href="#">5</a></li>
-              <li class="page-item"><a class="page-link" href="#">6</a></li>
-              <li class="page-item"><a class="page-link" href="#">7</a></li>
-              <li class="page-item"><a class="page-link" href="#">8</a></li>
-            </ul>
-          </nav>
-        </div>
-        <!-- /.card-footer -->
-      </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
-    </div>
+    </section>
+    <!-- /.content -->
+  </div><!-- /.container-fluid -->
+    </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
   <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-    <div class="p-3">
-      <h5>Title</h5>
-      <p>Sidebar content</p>
-    </div>
-  </aside>
+
   <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
-  <footer class="main-footer">
-    <!-- To the right -->
-    <div class="float-right d-none d-sm-inline">
-      Anything you want
-    </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-  </footer>
+@include('pages.user.layouts.footer')
 </div>
-<!-- ./wrapper -->
-
-<!-- REQUIRED SCRIPTS -->
-
-<!-- jQuery -->
-@foreach($availableDeliveries as $request)
-<div class="modal fade" id="requestId-{{$request->id}}">
-        <div class="modal-dialog">  
+<div class="modal fade" id="userId-{{$user->id}}">
+        <div class="modal-dialog modal-lg">  
           <div class="modal-content bg-default">
             <div class="modal-header">
-              <h4 class="modal-title">Request Seller\Buyer For Delivery</h4>
+              <h4 class="modal-title">Complete Profile</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-               <form role="form" action="{{url('request-delivery', array($request->id))}}" method="post">
+               <form role="form" action="{{url('update-user', array($user->id))}}" method="post" enctype="multipart/form-data">
                 @csrf
-
-                <p class="mb-3">Are you sure want to request this Seller or Buyer?
-                </p>
-                <h4 class="mb-3"> {{$request->firstname .' '. $request->lastname}}</h4>
-                <hr class="my-4">
-                  
-                <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-outline-success">Yes</button>
+              <div class="row">
+              <div class="col-lg-8">
+                <div class="form-group">
+                    <label for="shop">Motorcicle</label>
+                    <input type="text" class="form-control" id="shop" placeholder="Provide Motorcicle Number" name="motorcicle_number">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputFile">Profile Photo</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name="photo">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                      <div class="input-group-append">
+                        <span class="input-group-text" id="">Upload</span>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-outline-success">Submit</button>
             </div>
           </form>
           </div>
@@ -215,9 +251,11 @@
         </div>
         <!-- /.modal-dialog -->
       </div>
-    </div>
+<!-- ./wrapper -->
 
-      @endforeach
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

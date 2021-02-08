@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\MessageBag;
 use Illuminate\Http\Request;
+use Redirect;
 use Auth;
 use App\User;
 
@@ -49,7 +51,7 @@ class LoginController extends Controller
          ])){
         $user=User::where('email', $request->email)->first();
             if ($user->is_admin()) {
-               return redirect('admin');
+               return redirect('dashbaord');
         }
             elseif ($user->is_user()) {
                    return redirect('/home');
@@ -60,6 +62,6 @@ class LoginController extends Controller
         
     }
       $errors = new MessageBag(['password' => ['Email and/or password invalid.']]);
-    return redirect('login')->withErrors($errors);
+    return redirect('/')->withErrors($errors);
    }
 }

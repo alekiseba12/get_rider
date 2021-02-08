@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-
  <script type="text/javascript">
             $(document).ready(function() {
 
@@ -17,20 +15,14 @@
                               ConstituencyChange()
                           }
                       });
-
                });
 
                  $("#location").change(function(){
 
                      ConstituencyChange()
 
-               });
-
-
-               
+               });               
            });
-
-
            function ConstituencyChange() {
                   
                    $.ajax({
@@ -229,8 +221,7 @@
             </div>
              
         </div>
-        
-
+    
              <br>
           <h4 class="mb-3">Location Info</h4>
          <hr class="my-4">
@@ -250,7 +241,6 @@
                 Valid Constituency is required.
               </div>
             </div>
-
             <div class="col-sm-6">
                <label for="location">{{ trans('Located Area') }}</label>
                 <select name="location" id="location" class="form-control">
@@ -264,11 +254,8 @@
               <div class="invalid-feedback">
                 Valid Located Area is required.
               </div>
-            </div>
-             
+            </div>          
         </div>
-
-
         <div class="row g-3">
             <div class="col-sm-6">
               <label for="lat" class="form-label">Latitude</label>
@@ -286,7 +273,7 @@
 
             <div class="col-sm-6">
               <label for="longitude" class="form-label">Longitude</label>
-             <input id="longitude" type="text" class="form-control @error('longitude') is-invalid @enderror" name="longitude"  autocomplete="longitude">
+             <input id="longitude" type="text" class="form-control @error('longitude') is-invalid @enderror" name="longitude"   autocomplete="longitude">
 
                                 @error('longitude')
                                     <span class="invalid-feedback" role="alert">
@@ -297,12 +284,11 @@
                 Longitude is required.
               </div>
             </div>
-
-
-
-
         <br>
-          <button class=" btn btn-primary btn-lg" type="submit">Submit Details</button>
+          <button class=" btn btn-primary" type="submit">Submit Details</button>
+             <p class="mb-0">
+        <a href="{{url('/')}}" class="text-center">Login</a>
+      </p>
         </form>
       </div>
     </div>

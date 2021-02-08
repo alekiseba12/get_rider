@@ -31,8 +31,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $availableDeliveries=$this->sellerDeliveries();
-        return view('home', compact('availableDeliveries'));
+        $user=$this->showDetails();
+        return view('home', compact('user'));
     }
 
     public function profile(){
