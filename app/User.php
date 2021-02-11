@@ -34,7 +34,8 @@ class User extends Authenticatable
         'description',
         'latitude',
         'longitude',
-        'status'
+        'status',
+        'registration_number',
        
     ];
 
@@ -80,6 +81,14 @@ class User extends Authenticatable
         public function riders(){
 
         return $this->hasMany('App\Models\requests','seller_id', 'id');
+    }
+          public function payments(){
+
+        return $this->hasMany('App\Models\mpesa_payments','rider_id', 'id');
+    }
+        public function getRequestedRiders(){
+
+        return $this->hasMany('App\Models\mpesa_payments','seller_id', 'id');
     }
 
     public function deliveries(){

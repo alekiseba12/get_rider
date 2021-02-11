@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Notification;
 use App\Notifications\smsNotification;
 use App\Models\areas;
 use App\Models\constituencies;
+use App\Traits\userTrait;
 
 
 class RegisterController extends Controller
@@ -28,6 +29,7 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    use userTrait;
 
 
     /**
@@ -85,9 +87,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $data['registration_number'] = $this->generateRegistrationNumber();
     
         $user=User::create([
+            'id'           => mt_rand(10, 99),
             'name'         => $data['name'],
+            'registration_number'         => $data['registration_number'],
             'email'        => $data['email'],
             'firstname'    => $data['firstname'],
             'lastname'     => $data['lastname'],

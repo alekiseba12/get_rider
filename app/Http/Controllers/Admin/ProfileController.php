@@ -11,6 +11,7 @@ use App\Traits\adminTrait;
 use Validator;
 use App\User;
 
+
 class ProfileController extends Controller
 {
 
@@ -18,8 +19,10 @@ class ProfileController extends Controller
     //index for profile
 
     public function index(){
+        $constituencies=$this->showLocation();
+
     	$user=$this->shopCompany();
-    	return view('pages.admin.profile', compact('user'));
+    	return view('pages.admin.profile', compact('user','constituencies'));
     }
 
     //Report Dashboard
@@ -49,6 +52,16 @@ class ProfileController extends Controller
         $user->update();
 
         return back()->with('response', 'Your profile is completed successfully');
+    }
+
+    //edit profile
+
+    public function edit($id){
+
+        $user=User::findOrFail($id);
+
+        return $id;
+        die();
     }
     
 

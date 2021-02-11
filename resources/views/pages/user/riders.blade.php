@@ -14,7 +14,7 @@
     color: white;
    }
 
- </style>
+   </style>
 </head>
 <body class="hold-transition layout-top-nav">
 <div class="wrapper">
@@ -63,11 +63,15 @@
             Settings
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-           
+              <a href="{{route('requests')}}" class="dropdown-item">
+              <i class="fas fa-motorcycle mr-2"></i> Requests
+              
+            </a>
             <a href="{{route('profile')}}" class="dropdown-item">
               <i class="fas fa-user mr-2"></i> Account
               
             </a>
+
             <div class="dropdown-divider"></div>
            <a href="javascript::" class="dropdown-item" onclick="event.preventDefault();
           document.getElementById('logout-form').submit();">
@@ -97,6 +101,12 @@
     <!-- Main content -->
     <section class="content">
       <div class="container">
+          <div class="row mb-2">
+          <div class="col-sm-6">
+            <h4>Active Riders</h4>
+          </div>
+
+        </div>
        <div class="card card-solid">
         <div class="card-body pb-0">
           <div class="row d-flex align-items-stretch">
@@ -126,19 +136,27 @@
                   <div class="text-right">
 
                    
-                        <span style="color:green; font-size: 14px; ">{{$rider->distance}} away</span>
+                        <span style="color:green; font-size: 14px; ">23 Km away</span>
                            &ensp;&ensp;
+                         
 
-                    <a href="javascript::" class="btn btn-sm btn-primary"  onclick="event.preventDefault();
-          document.getElementById('request').submit();">
-            
-            {{ __('Request') }}
-          </a>
-          <form id="request" action="{{url('send-request', array($rider->id))}}" method="POST" style="display: none;"  onsubmit="return false">
-              @csrf
-         
-          </form>
-                       
+ <!--<button id="cancel-{{$rider->id}}" class="btn btn-sm btn-danger hidden" onclick="$('#request-{{$rider->id}}').show(),$('#cancel-{{$rider->id}}').hide()">
+
+                     Cancel </button> -->
+                   
+                      @if($rider->mpesa_payment==0)
+                      <a href="javascript::" data-toggle="modal" data-target="#requestId-{{$rider->id}}" class="btn btn-sm btn-primary">
+                      <i class="fas fa-lock"></i> Unlock </a>
+                    </a>
+                      @elseif($rider->status==0)
+                         <a href="javascript::" class="btn btn-sm btn-primary" onclick="event.preventDefault();
+                              document.getElementById('send-request-form').submit();">
+                        <i class="fas fa-paper-plane"></i> Request
+                      </a>
+                      @endif
+                           <form id="send-request-form" action="{{url('send-request', array($rider->id))}}" method="POST" style="display: none;">
+                           @csrf
+                          </form> 
                     </a>
                   </div>
                 </div>
@@ -170,15 +188,20 @@
         <div class="modal-dialog">  
           <div class="modal-content bg-default">
             <div class="modal-body">
-               <form role="form" action="{{url('send-request', array($request->id))}}" method="post">
+               <form role="form" action="{{url('send-payment', array($request->id))}}" method="post">
                 @csrf
 
-                <p class="mb-3">Are you sure want to request this rider?
-                </p>
-                <h4 class="mb-3"> {{$request->firstname .' '. $request->lastname}}</h4>   
+                <p class="mb-3">To unlock the rider, you have to make the payment fee.
+                </p>           
+                  <b>Rider ID:</b> #{{$request->id}}<br>
+                  <b>Payment Amount:</b> Ksh 50<br>
+                  
+                <br>
+                <p class="mb-3" style="font-style: italic;">Non-Refundable,  once the payment has been done!.
+                </p> 
                 <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
-              <button type="submit" id="myRequest" class="btn btn-outline-success">Yes</button>
+              <button type="submit" id="myRequest" class="btn btn-outline-success">Proceed</button>
             </div>
           </form>
           </div>
@@ -189,11 +212,6 @@
     </div>
 
       @endforeach
-
-<script type="text/javascript">
-  document.getElementById("myRequest").onclick = function () {
-        location.href = "www.yoursite.com";
-</script>
 
 @include('pages.admin.styles.js')
 </body>

@@ -18,14 +18,15 @@ class RiderController extends Controller
 		$getRiders=$this->riders();
 		$user=$this->shopCompany();
 
-		$admin_lat = -1.282;
-		$admin_lng = 36.888;
-		foreach($getRiders as $rider){
-			$distance = $this->GetDrivingDistance($admin_lat,$rider->latitude,$admin_lng,$rider->longitude);
-			$rider->distance = str_replace(',','.',$distance['distance']);
-			$rider->duration = str_replace(',','.',$distance['time']);
-			$rider->save();
-		}
+		 //$admin_lat = -1.282;
+		 //$admin_lng = 36.888;
+		///foreach($getRiders as $rider){
+			//$distance = $this->GetDrivingDistance($admin_lat,$rider->latitude,$admin_lng,$rider->longitude);
+			//$rider->distance = str_replace(',','.',$distance['distance']);
+			//$rider->duration = str_replace(',','.',$distance['time']);
+			//$rider->save();
+		//}
+		
     	return view('pages.user.riders', compact('getRiders','user'));
 	}
 	

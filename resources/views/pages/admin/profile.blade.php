@@ -15,6 +15,44 @@
    }
 
  </style>
+  <script type="text/javascript">
+            $(document).ready(function() {
+
+                $("#constituency").change(function(){
+
+                      $.ajax({
+                          url: "constituencies/get_by_constituency/" + $(this).val(),
+                          method: 'GET',
+                          success: function(data) {
+                              $('#location').html(data.html);
+
+                              ConstituencyChange()
+                          }
+                      });
+               });
+
+                 $("#location").change(function(){
+
+                     ConstituencyChange()
+
+               });               
+           });
+           function ConstituencyChange() {
+                  
+                   $.ajax({
+                          url: "location/cordinates/" +  $('#constituency').val()+"/"+$('#location').val(),
+                          method: 'GET',
+                          success: function(data) {
+                              console.log(data.lat);
+                              $('#lat').val(data.lat);
+                              $('#longitude').val(data.long);
+    
+                          }
+                      });
+            }
+
+             
+    </script>
 </head>
 <body class="hold-transition layout-top-nav">
 <div class="wrapper">
@@ -129,10 +167,7 @@
                    <a href="javascript::" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#userId-{{$user->id}}">
                        Complete Profile
                     </a>
-                    @else
-                     <a href="javascript::" class="btn btn-sm btn-success" data-toggle="modal" data-target="#">
-                       Profile Updated
-                    </a>
+              
                     @endif
               </div>
               <!-- /.card-body -->
@@ -180,7 +215,15 @@
                 <strong><i class="far fa-file-alt mr-1"></i> Shop/Company Description</strong>
 
                 <p class="text-muted">{{$user->description}}.</p>
+                  @if(Empty($user->photo))
+                    @else
+
+                     <a href="javascript::" class="btn btn-sm btn-success" data-toggle="modal" data-target="#profileId-{{$user->id}}">
+                       Edit Account
+                    </a> 
+                    @endif
               </div>
+
               <!-- /.card-body -->
             </div>
 
@@ -258,11 +301,117 @@
         </div>
         <!-- /.modal-dialog -->
       </div>
+
+      <div class="modal fade" id="profileId-{{$user->id}}">
+        <div class="modal-dialog modal-lg">  
+          <div class="modal-content bg-default">
+            <div class="modal-header">
+              <h4 class="modal-title">Edit Profile</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+               <form role="form" action="{{url('#', array($user->id))}}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="row">
+                      <div class="col-8">
+                    <input type="text" class="form-control" placeholder="Username" value="{{$user->name}}">
+                  </div> 
+                  
+                </div>
+                <br>
+                  <div class="row">
+                  <div class="col-3">
+                  <input type="text" class="form-control" placeholder="Firstname" value="{{$user->firstname}}">
+                  </div>
+                  <div class="col-4">
+                    <input type="text" class="form-control" placeholder="Lastname" value="{{$user->lastname}}">
+                  </div>
+                  <div class="col-5">
+                    <input type="text" class="form-control" placeholder="Email Address" value="{{$user->email}}">
+                  </div> 
+                   <hr class="ms-3">
+                   </div>
+                  <br>
+                  <div class="row">
+                  <div class="col-3">
+                    <input type="text" class="form-control" placeholder="Gender" value="{{$user->gender}}">
+                  </div>
+                  <div class="col-4">
+                    <input type="text" class="form-control" placeholder="Phone Number" value="{{$user->phone_number}}">
+                  </div>
+                  <div class="col-5">
+                    <input type="text" class="form-control" placeholder="National ID" value="{{$user->national_id}}">
+                  </div> 
+                   <hr class="ms-3">
+                  </div>
+                  <br>
+                 <div class="row">
+                  <div class="col-6">
+                    <input type="text" class="form-control" placeholder="Description" value="{{$user->description}}">
+                  </div>
+                  <div class="col-6">
+                    <select class="form-control" name="role" >
+                        <option value="{{$user->role}}">Buyer or Seller</option>                   
+                        
+                        </select>
+                    </div>
+                   <hr class="ms-3">
+                   </div>
+                    <br>
+                  <div class="row">
+                  <div class="col-6">
+                     <select class="form-control" name="constituency" id="constituency" >
+                        @foreach($constituencies as $id => $constituency)
+                        <option value="{{ $id }}">
+                            {{ $constituency }}
+                        </option>
+                    @endforeach
+                  </select>
+                </div>
+                  <div class="col-6">
+                    <select class="form-control" name="location" id="location">
+                       <option value="">{{ trans('Please select Location') }}</option> 
+                         </select>                  
+                        
+  
+                  </div>              
+                   <hr class="ms-3">
+                  </div>
+
+                  <br>
+                  <div class="row">
+                  <div class="col-12">
+                      <div class="input-group">
+                      <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="exampleInputFile" name="photo">
+                      <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                      <div class="input-group-append">
+                      <span class="input-group-text" id="">Upload</span>
+                      </div>
+                      </div>
+                  </div>
+                           
+                   <hr class="ms-3">
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-success">Submit</button>
+            </div>
+          </form>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
+
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

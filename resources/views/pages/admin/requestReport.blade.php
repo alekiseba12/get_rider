@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Request Report | Delivery</title>
+  <title>Requests | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -22,10 +22,10 @@
   <!-- Navbar -->
 <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
     <div class="container">
-      <a href="{{route('admin')}}" class="navbar-brand">
+      <a href="{{route('dashbaord')}}" class="navbar-brand">
         <img src="img/Canva.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
              style="opacity: .8">
-        <span class="brand-text font-weight-light text-white">Delivery</span>
+     
       </a>
       
       <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,19 +34,6 @@
 
       <div class="collapse navbar-collapse order-3" id="navbarCollapse">
         <!-- Left navbar links -->
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a href="{{route('all-riders-deliveries')}}" class="nav-link text-white">Deliveries</a>
-          </li>
-
-                <li class="nav-item">
-                <a href="{{route('all-riders-requests')}}" class="nav-link text-white">
-                  
-                  <p>Requests</p>
-                </a>
-              </li>
-
-        </ul>
 
         <!-- SEARCH FORM -->
 
@@ -57,8 +44,13 @@
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
-             <img src="img/Canva.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+             @if(empty($user->photo))
+             <img src="img/empty.jpg" alt="User Photo" class="brand-image img-circle elevation-3"
              style="opacity: .8">
+             @else
+              <img src="{{$user->photo}}" alt="User Photo" class="brand-image img-circle elevation-3"
+             style="opacity: .8">
+             @endif
           </a>
         
         </li>
@@ -68,7 +60,10 @@
             Settings
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-           
+           <a href="{{route('requests')}}" class="dropdown-item">
+              <i class="fas fa-motorcycle mr-2"></i> Requests
+              
+            </a>
             <a href="{{route('profile')}}" class="dropdown-item">
               <i class="fas fa-user mr-2"></i> Account
               
@@ -127,17 +122,17 @@
                     <td>{{$request->created_at}}</td>
                     <td>
                       
-                      @if($request->status==0)
-                       <small class="badge badge-warning"><i class="far fa-clock"></i> Inactive</small> 
-                       
-                       @elseif ($request->status==1) 
-                       <small class="badge badge-success"><i class="far fa-clock"></i> Accepted</small>
-                       @elseif ($request->status==2) 
-                       <small class="badge badge-danger"><i class="far fa-clock"></i> Cancelled</small>                
+                      @if($request->status==1) 
+                       <small class="badge badge-success"> Comfirmed</small>  
+                       @else
+                       <small class="badge badge-danger"> Cancelled</small>             
                        @endif
                     </td>
                     <td>
-                      <small class="badge badge-danger"> Remove</small>
+
+                    <a href="javascript"  class="badge badge-info" data-toggle="modal" data-target="#requestId-{{$request->id}}">
+                       Edit</a>
+                         
                     </td>
                     
                   </tr>
@@ -187,6 +182,38 @@
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
+@foreach($sentRequests as $requestRider)
+<div class="modal fade" id="requestId-{{$requestRider->id}}">
+        <div class="modal-dialog">  
+          <div class="modal-content bg-default">
+            <div class="modal-body">
+               <form role="form" action="{{url('cancel-request', array($requestRider->id))}}" method="post">
+                @csrf
+
+                <p class="mb-3">Update Request
+                </p>
+                    <div class="form-group">
+                    <label for="shop">Change Status</label>
+                    <select class="form-control" name="status" >
+                        <option>-----</option>
+                          <option value="2">Cancel</option>
+                          
+                        </select>
+                  </div>   
+                <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+              <button type="submit" id="myRequest" class="btn btn-outline-success">Update</button>
+            </div>
+          </form>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+    </div>
+
+      @endforeach
 @include('pages.admin.styles.js')
+
 </body>
 </html>

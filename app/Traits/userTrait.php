@@ -39,6 +39,23 @@ trait userTrait
 
           return $info;
      }
+     /**
+     * Generate unique user membership number.
+     *
+     * @return string
+     */
+    public function generateRegistrationNumber()
+    {
+        $registration_number = mt_rand(1000000000, 9999999999); // better than rand()
+        $user = User::find($registration_number);
+        // call the same function if the $registration_number already exists
+        if ($user) {
+            return $this->generateRegistrationNumber();
+        }
+
+        // otherwise, it's valid and can be used
+        return $registration_number;
+    }
      
    
 

@@ -4,6 +4,7 @@ namespace App\Traits;
 use App\User;
 use App\Models\requests;
 use App\Models\deliveries;
+use App\Constituency;
 use Auth;
 use DB;
 
@@ -22,12 +23,18 @@ trait adminTrait
           $info=User::where('role','=', 1)->where('id',$user['id'])->first();
 	     return $info;
 	}
+  public function showLocation(){
+    $constituencies = Constituency::all()
+                  ->pluck('name', 'id')
+                  ->prepend('Select Constituency');
+   return $constituencies;
+  }
 
      //Display all the riders for shop/company owners
 
      public function riders(){
 
-          $riders=User::all()->where('role','=',2);
+          $riders=User::all()->where('role','=',2)->where('status','=',0);
 
           return $riders;
      }
@@ -39,7 +46,8 @@ trait adminTrait
 
           $requests=DB::table('requests')
                        ->join('users','users.id','=','requests.rider_id')
-                       ->select('users.*', 'requests.status')
+                       ->select('users.firstname','users.lastname','users.national_id',
+                        'users.location', 'requests.status', 'requests.created_at','requests.id')
                        ->where('requests.seller_id',$currentUser['id'])
                        ->get();
 

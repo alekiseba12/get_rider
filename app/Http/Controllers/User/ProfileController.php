@@ -43,6 +43,15 @@ class ProfileController extends Controller
 
         return back()->with('response', 'Your profile is completed successfully');
     }
+      //edit profile
 
+    public function editUser($id){
+
+        $user=User::findOrFail($id);
+
+        return $id;
+        die();
+    }
+    
 
 }
