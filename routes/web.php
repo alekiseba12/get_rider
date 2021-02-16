@@ -77,3 +77,19 @@ Route::group(['middleware' => 'user'], function () {
 
 
 });
+
+
+Route::group(['middleware' => 'super'], function () {
+Route::get('admin', 'SuperAdmin\IndexController@index')->name('admin');
+
+//Services Routes
+
+Route::get('get-riders', 'SuperAdmin\IndexController@riders')->name('get-riders');
+
+Route::get('all-sellers-buyers', 'SuperAdmin\IndexController@sellers')->name('all-sellers-buyers');
+
+Route::get('all-payments', 'SuperAdmin\IndexController@payments')->name('all-payments');
+
+Route::get('all-requests', 'SuperAdmin\IndexController@requests')->name('all-requests');
+
+});

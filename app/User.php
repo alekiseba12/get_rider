@@ -60,7 +60,7 @@ class User extends Authenticatable
         }
 
     }
-    public function is_treasure(){
+    public function is_super(){
         if($this->role==3){
             return true;
         }

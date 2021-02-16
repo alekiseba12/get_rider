@@ -3,25 +3,20 @@
 @section('content')
  <script type="text/javascript">
             $(document).ready(function() {
-
                 $("#constituency").change(function(){
-
                       $.ajax({
                           url: "constituencies/get_by_constituency/" + $(this).val(),
                           method: 'GET',
                           success: function(data) {
                               $('#location').html(data.html);
-
                               ConstituencyChange()
                           }
                       });
                });
-
                  $("#location").change(function(){
-
                      ConstituencyChange()
-
-               });               
+               });
+               
            });
            function ConstituencyChange() {
                   
@@ -36,7 +31,6 @@
                           }
                       });
             }
-
              
     </script>
 

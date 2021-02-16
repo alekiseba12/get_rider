@@ -56,8 +56,8 @@ class LoginController extends Controller
             elseif ($user->is_user()) {
                    return redirect('/home');
         }
-            elseif ($user->is_manager()) {
-                   return redirect('manager');
+            elseif ($user->is_super()) {
+                   return redirect('admin');
          }
         
     }
