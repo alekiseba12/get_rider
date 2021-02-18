@@ -92,4 +92,12 @@ Route::get('all-payments', 'SuperAdmin\IndexController@payments')->name('all-pay
 
 Route::get('all-requests', 'SuperAdmin\IndexController@requests')->name('all-requests');
 
+//Show each object
+
+Route::get('rider/{id}', 'SuperAdmin\IndexController@showRider');
+
+Route::get('seller/{id}', 'SuperAdmin\IndexController@showSeller');
+
+Route::post('update-payment/{id}', 'SuperAdmin\IndexController@updatePayment');
+
 });

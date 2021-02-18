@@ -142,18 +142,12 @@
 
  <!--<button id="cancel-{{$rider->id}}" class="btn btn-sm btn-danger hidden" onclick="$('#request-{{$rider->id}}').show(),$('#cancel-{{$rider->id}}').hide()">
 
-                     Cancel </button> -->
-                   
-                      @if($rider->mpesa_payment==0)
-                      <a href="javascript::" data-toggle="modal" data-target="#requestId-{{$rider->id}}" class="btn btn-sm btn-primary">
-                      <i class="fas fa-lock"></i> Unlock </a>
-                    </a>
-                      @elseif($rider->status==0)
+                     Cancel </button> -->     
                          <a href="javascript::" class="btn btn-sm btn-primary" onclick="event.preventDefault();
                               document.getElementById('send-request-form').submit();">
                         <i class="fas fa-paper-plane"></i> Request
                       </a>
-                      @endif
+     
                            <form id="send-request-form" action="{{url('send-request', array($rider->id))}}" method="POST" style="display: none;">
                            @csrf
                           </form> 

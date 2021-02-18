@@ -74,7 +74,6 @@ class RequestController extends Controller
         $mpesa->seller_id=$currentUser->id;
         $mpesa->amount_paid=50;
         $mpesa->save();
-        $this->updateMpesa($id);
         return back();
 
         }
